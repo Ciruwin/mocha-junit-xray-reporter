@@ -297,13 +297,16 @@ MochaJUnitReporter.prototype.getTestcaseData = function(test, err) {
   var flipClassAndName = this._options.testCaseSwitchClassnameAndName;
   var name = stripAnsi(jenkinsMode ? getJenkinsClassname(test, this._options) : test.fullTitle());
   var classname = stripAnsi(test.title);
+  
+  const words = test.fullTitle().split(' ');
+  
   var testcase = {
     testcase: [{
       _attr: {
         name: flipClassAndName ? classname : name,
         time: (typeof test.duration === 'undefined') ? 0 : test.duration / 1000,
         classname: flipClassAndName ? name : classname,
-        requirement: test.fullTitle()
+        requirement: words[0]
       }
     }]
   };
